@@ -25,3 +25,6 @@
 - [x] Rebuild the LandingIntro component to the exact five-stage, 3200 ms Framer Motion sequence.
 - [x] Apply and verify the required card, calendar, itinerary, dropdown, chart, and route-transition animations.
 - [x] Test the refinement in-browser, checkpoint the project, and push the completed update to GitHub.
+- [x] Organize all World Trotter logo and destination source images in a local asset folder with a deployment-safe mapping manifest.
+- [x] Verify the published project still resolves every image from its persistent storage URL and synchronize the manifest to GitHub.
+- [ ] Commit and push the new local asset manifest documentation and final checklist state to the selected GitHub repository.
