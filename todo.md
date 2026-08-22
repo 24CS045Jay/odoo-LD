@@ -16,6 +16,7 @@
 - [x] Complete password-reset persistence and full expense/share API coverage.
 - [x] Replace the shared-itinerary presentation page with live public API data and explicit loading, empty, and error states.
 - [x] Save a post-backend checkpoint and push the validated backend integration commit to GitHub.
-- [ ] Save a checkpoint for the backend-integrated World Trotter state.
-- [ ] Commit and push the backend integration changes to the selected GitHub repository.
-- [ ] Verify the remote backend integration commit and clean repository state.
+- [x] Save a checkpoint for the backend-integrated World Trotter state.
+- [x] Commit and push the backend integration changes to the selected GitHub repository.
+- [x] Verify the remote backend integration commit and clean repository state.
+- [ ] Synchronize the final World Trotter release checklist state to the selected GitHub repository.
