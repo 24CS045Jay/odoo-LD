@@ -17,6 +17,8 @@ import { commentRouter, communityRouter } from "./routes/community.routes";
 import { shareRouter } from "./routes/share.routes";
 import { tripRouter } from "./routes/trip.routes";
 import { userRouter } from "./routes/user.routes";
+import { imageRouter } from "./routes/image.routes";
+import path from "path";
 import { registerStorageProxy } from "./_core/storageProxy";
 import { serveStatic, setupVite } from "./_core/vite";
 
@@ -31,8 +33,11 @@ async function startServer() {
   app.use(express.json({ limit: "2mb" }));
   app.use(express.urlencoded({ extended: true, limit: "2mb" }));
   registerStorageProxy(app);
+  // Serve uploaded images statically
+  app.use("/api/images/file", express.static(path.resolve(process.cwd(), "server", "uploads")));
   app.get("/api/health", (_req, res) => res.json({ success: true, data: { service: "world-trotter-api", status: "ready" }, message: "API healthy" }));
   app.use("/api/auth", authRouter); app.use("/api/users", userRouter); app.use("/api/trips", tripRouter); app.use("/api/cities", cityRouter); app.use("/api/activities", activityRouter); app.use("/api/calendar", calendarRouter); app.use("/api/community", communityRouter); app.use("/api/comments", commentRouter); app.use("/api/public", shareRouter); app.use("/api/admin", adminRouter);
+  app.use("/api/images", imageRouter);
   app.use("/api", notFound);
   if (env.NODE_ENV === "development") await setupVite(app, server); else serveStatic(app);
   app.use(errorHandler);

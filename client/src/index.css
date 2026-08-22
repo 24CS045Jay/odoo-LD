@@ -25,3 +25,11 @@ button:active, [role="button"]:active { transform: scale(.97); }
 @media (min-width: 1536px) { html { font-size: 17px; } }
 ::selection { background: var(--gold); color: #fffdf9; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+/* Leaflet map custom styles */
+.wt-stop-marker { background: transparent !important; border: none !important; }
+.wt-activity-marker { background: transparent !important; border: none !important; }
+.wt-popup .leaflet-popup-content-wrapper { border-radius: 16px; box-shadow: 0 8px 32px rgba(23,49,74,.14); border: 1px solid var(--line); font-family: "Manrope", system-ui, sans-serif; }
+.wt-popup .leaflet-popup-tip { border-top-color: white; }
+.wt-popup .leaflet-popup-content { margin: 8px 10px; }
+.leaflet-container { font-family: "Manrope", system-ui, sans-serif; }
+
