@@ -1,20 +1,36 @@
 # World Trotter
 
-**World Trotter** is a premium, frontend-only travel planning interface built with React, TypeScript, Vite, Tailwind CSS, Framer Motion, Wouter, Lucide, and Recharts. The current iteration focuses on the complete client-side experience: the World Trotter rebrand, page navigation, visual storytelling, travel-journal motifs, route/budget displays, and responsive behavior.
+**World Trotter** is a travel-planning application with a React/Vite frontend and an Express, MongoDB/Mongoose, JWT backend. It preserves the ivory, nautical-navy, and antique-gold travel-journal visual system while persisting authentication, trips, itinerary sections, activities, expenses, city and activity discovery, community posts, sharing, and admin analytics through REST endpoints.
 
 ## Run locally
 
-Install dependencies with `pnpm install`, start the interface with `pnpm dev`, and open the local Vite URL printed in the terminal. Use `pnpm check` for TypeScript validation, `pnpm test` for the small frontend verification suite, and `pnpm build` to produce the production frontend bundle.
+Install dependencies with `pnpm install`, then run `pnpm dev`. The unified Express server starts on port `3000`, serves the REST API under `/api`, and hosts the Vite client in development. Use `pnpm check` for TypeScript validation, `pnpm test` for the connection and application checks, `pnpm build` for the production bundle, and `pnpm seed` to create catalog and planning demo data.
 
-## Frontend routes
+The application requires the platform-managed `MONGODB_URI` and `JWT_SECRET` values. To run outside this environment, configure an Atlas URI, a JWT secret of at least 16 characters, `JWT_EXPIRES_IN=7d`, and `CLIENT_URL` for the deployed client origin. Connection details are intentionally not committed.
 
-The implemented journey includes the landing page, dashboard, my trips, create trip, itinerary builder, itinerary view, budget, city search, activity search, calendar, community, shared itinerary, profile, admin preview, sign in, and registration routes. Create Trip → Itinerary Builder → Itinerary View is wired as a linear client-side flow.
+## Seeded development access
 
-## Current scope
+The seed command creates a demo traveler at `demo@worldtrotter.app` and an administrator at `admin@worldtrotter.app`. Both accounts use the development-only password `WorldTrotterDemo2026`. Change or remove these accounts before production use. The seed creates cities, activities, trips, itinerary sections, and expenses. It intentionally does **not** fabricate community posts, comments, likes, ratings, or testimonials; use the live community interface for genuine contributions.
 
-This version deliberately uses **local presentation data**. Database persistence, JWT authentication, CRUD actions, client API modules, Express routes, and MongoDB/Mongoose wiring are deferred to the next implementation prompt, as requested. The existing backend-capability scaffolding is retained for that later phase, but the active development and build scripts intentionally run the frontend-only Vite experience.
+## Core API map
+
+| REST resource | Key routes | Frontend use |
+|---|---|---|
+| Authentication | `POST /api/auth/register`, `/login`, `/demo-login`; `GET /me`; `POST /logout` | Login, registration, session state |
+| Users | `GET/PUT/DELETE /api/users/:id`; avatar, password, and saved-destination routes | Profile and account management |
+| Trips | `GET/POST /api/trips`; `GET/PUT/DELETE /api/trips/:id`; duplicate and cover routes | Dashboard, My Trips, Create Trip |
+| Itinerary | Nested `/api/trips/:tripId/sections` and activity routes | Itinerary Builder and Review |
+| Budget and calendar | `/api/trips/:tripId/budget`, nested expense CRUD, `GET /api/calendar` | Budget and Calendar |
+| Discovery | `GET /api/cities`, `GET /api/activities`; admin CRUD | Cities and Activities |
+| Community | `/api/community`, comments, and likes | Community feed and future post workflow |
+| Sharing and admin | `/api/public/:shareToken`, `/api/admin/*` | Shared itinerary and Admin analytics |
+
+All list endpoints support the shared search, filter, sort, grouping, and pagination contract. API responses use `{ success, data, message }`; validation, MongoDB, JWT, and generic exceptions are normalized by the central error middleware.
+
+## Security and storage
+
+The API uses Helmet headers, configured CORS, a rate limit on authentication endpoints, bcrypt password hashing, JWT bearer tokens, Zod validation, role checks, and centralized errors. Multipart image uploads accept JPEG, PNG, WebP, and GIF files up to 5 MB, then use the platform storage helper to persist a returned `/manus-storage/...` URL. Password hashes are excluded from serialized responses.
 
 ## Visual system
 
-The interface uses a warm ivory canvas, sand paper surfaces, deep nautical navy actions, and muted antique-gold wayfinding. It pairs DM Serif Display with Plus Jakarta Sans and repeats the World Trotter compass globe, coordinate ribbons, route lines, ledger grids, and field-note details across the travel journey.
-
+The interface uses a warm ivory canvas, sand paper surfaces, deep nautical navy actions, and muted antique-gold wayfinding. DM Serif Display and Plus Jakarta Sans work with a compass globe, coordinate ribbons, route lines, ledger grids, and field-note details throughout the planning journey.

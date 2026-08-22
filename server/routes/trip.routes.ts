@@ -1,0 +1,12 @@
+import { Router } from "express";
+import { imageUpload } from "../config/multer";
+import * as controller from "../controllers/trip.controller";
+import { requireAuth } from "../middleware/auth.middleware";
+import { validate } from "../middleware/validate.middleware";
+import { expenseSchema, itineraryActivitySchema, sectionSchema, tripSchema } from "../validators/trip.validator";
+export const tripRouter = Router();
+tripRouter.use(requireAuth);
+tripRouter.post("/", validate(tripSchema), controller.createTrip); tripRouter.get("/", controller.listTrips); tripRouter.get("/:id", controller.getTrip); tripRouter.put("/:id", validate(tripSchema), controller.updateTrip); tripRouter.delete("/:id", controller.deleteTrip); tripRouter.post("/:id/duplicate", controller.duplicateTrip); tripRouter.post("/:id/cover", imageUpload.single("image"), controller.uploadCover); tripRouter.post("/:tripId/share", controller.createShare); tripRouter.delete("/:tripId/share", controller.deleteShare);
+tripRouter.post("/:tripId/sections", validate(sectionSchema), controller.createSection); tripRouter.get("/:tripId/sections", controller.listSections); tripRouter.put("/:tripId/sections/reorder", controller.reorderSections); tripRouter.put("/:tripId/sections/:sectionId", validate(sectionSchema), controller.updateSection); tripRouter.delete("/:tripId/sections/:sectionId", controller.deleteSection); tripRouter.post("/:tripId/sections/:sectionId/duplicate", controller.duplicateSection);
+tripRouter.post("/:tripId/sections/:sectionId/activities", validate(itineraryActivitySchema), controller.createItineraryActivity); tripRouter.get("/:tripId/sections/:sectionId/activities", controller.listItineraryActivities); tripRouter.put("/:tripId/sections/:sectionId/activities/reorder", controller.reorderItineraryActivities); tripRouter.put("/:tripId/sections/:sectionId/activities/:activityId", validate(itineraryActivitySchema), controller.updateItineraryActivity); tripRouter.delete("/:tripId/sections/:sectionId/activities/:activityId", controller.deleteItineraryActivity);
+tripRouter.get("/:tripId/budget", controller.getBudget); tripRouter.get("/:tripId/expenses", controller.listExpenses); tripRouter.post("/:tripId/expenses", validate(expenseSchema), controller.createExpense); tripRouter.put("/:tripId/expenses/:id", validate(expenseSchema), controller.updateExpense); tripRouter.delete("/:tripId/expenses/:id", controller.deleteExpense);

@@ -1,0 +1,21 @@
+- [x] Build reusable header, mobile navigation, footer, filter controls, and motion primitives.
+- [x] Complete the missing planning, itinerary, discovery, budget, and shared-itinerary pages with local presentation data only.
+- [x] Apply the World Trotter beige-white rebrand, logo, landing animation, and component micro-interactions.
+- [x] Validate the frontend navigation and visual implementation, document the deferred backend scope, and push the update to GitHub.
+- [x] Verify and push the latest World Trotter source to the selected GitHub repository.
+- [x] Audit the frontend presentation data and page flows to define API contracts and MongoDB collections.
+- [x] Configure the MongoDB URI, Express foundation, security middleware, and API error handling.
+- [x] Implement JWT authentication and Mongoose-backed CRUD for users, trips, itinerary sections, activities, expenses, discovery, community, sharing, and admin analytics.
+- [x] Replace frontend presentation data with authenticated API requests plus real loading, empty, and error states.
+- [x] Run integration tests, document environment setup, checkpoint the working application, and push the backend update to GitHub.
+- [x] Audit the frontend presentation data and page flows to define API contracts and MongoDB collections.
+- [x] Configure the MongoDB URI, Express foundation, security middleware, and API error handling.
+- [x] Implement JWT authentication and Mongoose-backed CRUD for users, trips, itinerary sections, activities, expenses, discovery, community, sharing, and admin analytics.
+- [x] Replace frontend presentation data with authenticated API requests plus real loading, empty, and error states.
+- [x] Run integration tests, document environment setup, checkpoint the working application, and push the backend update to GitHub.
+- [x] Complete password-reset persistence and full expense/share API coverage.
+- [x] Replace the shared-itinerary presentation page with live public API data and explicit loading, empty, and error states.
+- [x] Save a post-backend checkpoint and push the validated backend integration commit to GitHub.
+- [ ] Save a checkpoint for the backend-integrated World Trotter state.
+- [ ] Commit and push the backend integration changes to the selected GitHub repository.
+- [ ] Verify the remote backend integration commit and clean repository state.

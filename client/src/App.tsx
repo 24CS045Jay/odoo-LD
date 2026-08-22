@@ -31,7 +31,7 @@ function Router() {
     <Route path="/dashboard" component={DashboardPage} /><Route path="/trips" component={MyTripsPage} /><Route path="/trips/new" component={CreateTripPage} />
     <Route path="/itinerary-builder" component={ItineraryBuilderPage} /><Route path="/itinerary-view" component={ItineraryViewPage} /><Route path="/budget" component={TripBudgetPage} />
     <Route path="/cities" component={CitySearchPage} /><Route path="/activities" component={ActivitySearchPage} /><Route path="/calendar" component={CalendarPage} />
-    <Route path="/community" component={CommunityPage} /><Route path="/shared/mediterranean" component={SharedItineraryPage} /><Route path="/profile" component={ProfilePage} /><Route path="/admin" component={AdminPage} />
+    <Route path="/community" component={CommunityPage} /><Route path="/shared/:shareToken" component={SharedItineraryPage} /><Route path="/profile" component={ProfilePage} /><Route path="/admin" component={AdminPage} />
     <Route path="/404" component={NotFound} /><Route component={NotFound} />
   </Switch></PageTransition></AnimatePresence>;
 }
@@ -39,4 +39,3 @@ function Router() {
 export default function App() {
   return <ErrorBoundary><ThemeProvider defaultTheme="light"><TooltipProvider><Toaster /><Router /></TooltipProvider></ThemeProvider></ErrorBoundary>;
 }
-

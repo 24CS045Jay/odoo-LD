@@ -1,0 +1,3 @@
+import { z } from "zod";
+export const citySchema = z.object({ name: z.string().min(1).max(120), country: z.string().min(1).max(120), region: z.string().max(120).optional(), tag: z.string().max(160).optional(), description: z.string().max(2000).optional(), costIndex: z.coerce.number().min(0).optional(), popularityScore: z.coerce.number().min(0).optional(), imageUrl: z.string().url().optional() });
+export const activitySchema = z.object({ name: z.string().min(1).max(160), city: z.string().min(1), category: z.string().max(80).optional(), cost: z.coerce.number().min(0).optional(), duration: z.string().max(80).optional(), description: z.string().max(3000).optional(), images: z.array(z.string().url()).optional() });
