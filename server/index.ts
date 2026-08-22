@@ -14,6 +14,7 @@ import { authRouter } from "./routes/auth.routes";
 import { calendarRouter } from "./routes/calendar.routes";
 import { cityRouter } from "./routes/city.routes";
 import { commentRouter, communityRouter } from "./routes/community.routes";
+import { notificationRouter } from "./routes/notification.routes";
 import { shareRouter } from "./routes/share.routes";
 import { tripRouter } from "./routes/trip.routes";
 import { userRouter } from "./routes/user.routes";
@@ -32,7 +33,7 @@ async function startServer() {
   app.use(express.urlencoded({ extended: true, limit: "2mb" }));
   registerStorageProxy(app);
   app.get("/api/health", (_req, res) => res.json({ success: true, data: { service: "world-trotter-api", status: "ready" }, message: "API healthy" }));
-  app.use("/api/auth", authRouter); app.use("/api/users", userRouter); app.use("/api/trips", tripRouter); app.use("/api/cities", cityRouter); app.use("/api/activities", activityRouter); app.use("/api/calendar", calendarRouter); app.use("/api/community", communityRouter); app.use("/api/comments", commentRouter); app.use("/api/public", shareRouter); app.use("/api/admin", adminRouter);
+  app.use("/api/auth", authRouter); app.use("/api/users", userRouter); app.use("/api/trips", tripRouter); app.use("/api/cities", cityRouter); app.use("/api/activities", activityRouter); app.use("/api/calendar", calendarRouter); app.use("/api/community", communityRouter); app.use("/api/comments", commentRouter); app.use("/api/public", shareRouter); app.use("/api/admin", adminRouter); app.use("/api/notifications", notificationRouter);
   app.use("/api", notFound);
   if (env.NODE_ENV === "development") await setupVite(app, server); else serveStatic(app);
   app.use(errorHandler);

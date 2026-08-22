@@ -8,11 +8,15 @@
 }
 :root { --canvas: #faf7f2; --sand: #f5efe6; --sand-dark: #e4d6c3; --navy: #17314a; --navy-soft: #35556c; --gold: #b7954a; --ink: #223746; --ink-muted: #6f7c80; --line: #e5dbce; --background: var(--canvas); --foreground: var(--ink); --card: #fffdf9; --card-foreground: var(--ink); --popover: #fffdf9; --popover-foreground: var(--ink); --primary: var(--navy); --primary-foreground: #fffdf9; --secondary: var(--sand); --secondary-foreground: var(--navy); --muted: var(--sand); --muted-foreground: var(--ink-muted); --accent: #efe2be; --accent-foreground: var(--navy); --destructive: #b6463d; --destructive-foreground: #fffdf9; --border: var(--line); --input: var(--line); --ring: var(--gold); --radius: 0.85rem; }
 * { border-color: var(--border); }
-html { scroll-behavior: smooth; }
-body { margin: 0; min-width: 320px; background: var(--canvas); color: var(--ink); font-family: "Plus Jakarta Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { margin: 0; min-width: 320px; background: var(--canvas); color: var(--ink); font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif; font-size: 1rem; line-height: 1.65; -webkit-font-smoothing: antialiased; letter-spacing: -0.01em; }
+h1, h2, h3, h4, h5, h6 { line-height: 1.1; letter-spacing: -0.03em; }
+p { line-height: 1.75; }
 button, a, input, textarea, select { transition: color 180ms cubic-bezier(.23,1,.32,1), background-color 180ms cubic-bezier(.23,1,.32,1), border-color 180ms cubic-bezier(.23,1,.32,1), transform 160ms cubic-bezier(.23,1,.32,1), box-shadow 180ms cubic-bezier(.23,1,.32,1); }
 button:active, [role="button"]:active { transform: scale(.97); }
-.font-serif { font-family: "DM Serif Display", Georgia, serif; }
+.font-serif { font-family: "DM Serif Display", Georgia, serif; letter-spacing: -0.04em; }
+/* Eyebrow labels — bumped from 10px to 12px */
+.eyebrow { font-size: 12px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; }
 .route-ribbon { background: linear-gradient(90deg, #faf7f2, #f5efe6 48%, #faf7f2); }
 .route-line { display: inline-block; width: 58px; border-top: 1px dashed var(--gold); opacity: .65; }
 .map-grid { background-image: linear-gradient(rgba(183,149,74,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(183,149,74,.12) 1px, transparent 1px); background-size: 28px 28px; }

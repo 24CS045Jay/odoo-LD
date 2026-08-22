@@ -51,3 +51,11 @@ export const communityApi = { list: () => api<{ items: ApiPost[] }>("/api/commun
 export const publicApi = { getTrip: (shareToken: string) => api<{ trip: ApiTrip; sections: ApiSection[]; viewCount: number }>(`/api/public/${shareToken}`), copyTrip: (shareToken: string) => api<ApiTrip>(`/api/public/${shareToken}/copy`, { method: "POST" }) };
 export type ApiPost = { _id: string; title: string; content: string; destination?: string; country?: string; images?: string[]; tags?: string[]; likesCount: number; commentsCount: number; author?: { firstName?: string; lastName?: string; avatarUrl?: string } };
 export const adminApi = { analytics: () => api<{ totalUsers: number; activeUsers: number; totalTrips: number; averageBudget: number; popularDestinations: { _id: string; count: number }[] }>("/api/admin/analytics") };
+
+export type ApiNotification = { _id: string; title: string; body: string; type: "trip" | "community" | "system" | "reminder"; link: string; read: boolean; createdAt: string };
+export const notificationApi = {
+  list: () => api<{ items: ApiNotification[]; unreadCount: number }>("/api/notifications"),
+  markRead: (id: string) => api<ApiNotification>(`/api/notifications/${id}/read`, { method: "PATCH" }),
+  markAllRead: () => api<{ updated: true }>("/api/notifications/read-all", { method: "PATCH" }),
+  remove: (id: string) => api<{ deleted: true }>(`/api/notifications/${id}`, { method: "DELETE" }),
+};
