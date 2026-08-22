@@ -23,7 +23,7 @@ export default function Footer() {
           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[var(--gold)]">
             Plan
           </p>
-          <div className="mt-4 space-y-2 text-sm font-semibold text-[var(--ink-muted)]">
+          <div className="mt-4 flex flex-col items-start gap-2 text-sm font-semibold text-[var(--ink-muted)]">
             <Link href="/trips/new">Start a journey</Link>
             <Link href="/itinerary-builder">Build an itinerary</Link>
             <Link href="/budget">See a budget</Link>
@@ -33,7 +33,7 @@ export default function Footer() {
           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[var(--gold)]">
             Discover
           </p>
-          <div className="mt-4 space-y-2 text-sm font-semibold text-[var(--ink-muted)]">
+          <div className="mt-4 flex flex-col items-start gap-2 text-sm font-semibold text-[var(--ink-muted)]">
             <Link href="/cities">Find cities</Link>
             <Link href="/activities">Find experiences</Link>
             <Link href="/community">Community routes</Link>
