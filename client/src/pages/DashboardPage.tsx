@@ -8,4 +8,95 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import AppShell from "@/components/layout/AppShell";
 import PageIntro from "@/components/shared/PageIntro";
 import TripCard from "@/components/trips/TripCard";
-export default function DashboardPage() { const { user, isAuthenticated } = useAuth(); const tripQuery = useQuery({ queryKey: ["trips"], queryFn: tripApi.list, enabled: isAuthenticated }); const current = tripQuery.data?.items[0]; return <AppShell><section className="mx-auto max-w-[1240px] px-5 py-12 lg:px-8"><PageIntro eyebrow="Your travel desk" title={<>Good morning, {user?.firstName ?? "traveler"}<span className="text-[var(--gold)]">.</span></>} description="A quiet place to keep your next places, dates, and useful little details together." action={<Link href="/trips/new" className="rounded-full bg-[var(--navy)] px-5 py-3 text-sm font-extrabold text-white">Plan a journey</Link>}/>{!isAuthenticated ? <div className="mt-10 rounded-[26px] bg-[var(--sand)] p-8 text-center"><p className="font-serif text-3xl font-bold text-[var(--navy)]">Your journal is waiting.</p><Link href="/login" className="mt-5 inline-block rounded-full bg-[var(--navy)] px-5 py-3 text-sm font-extrabold text-white">Sign in</Link></div> : tripQuery.isLoading ? <div className="mt-10 h-80 animate-pulse rounded-[26px] bg-[var(--sand)]"/> : current ? <div className="mt-10 grid gap-5 lg:grid-cols-[1.4fr_.6fr]"><TripCard trip={tripCard(current)}/><aside className="rounded-[26px] bg-[var(--sand)] p-6"><p className="text-[10px] font-black uppercase tracking-[.18em] text-[var(--gold)]">Trip pulse</p><h2 className="mt-3 font-serif text-3xl font-bold text-[var(--navy)]">{current.destinations[0]?.city ?? "A new place is calling."}</h2><div className="mt-7 space-y-4 text-sm font-semibold text-[var(--ink-muted)]"><p className="flex gap-3"><MapPin size={17} className="text-[var(--gold)]"/>{current.destinations.length} destinations in view</p><p className="flex gap-3"><Compass size={17} className="text-[var(--gold)]"/>A real, saved route</p><p className="flex gap-3"><WalletCards size={17} className="text-[var(--gold)]"> </WalletCards>{current.currency} {current.budget} planned</p></div><Link href="/itinerary-builder" className="mt-8 inline-flex items-center gap-2 text-sm font-extrabold text-[var(--navy)]">Continue planning <ArrowRight size={15}/></Link></aside></div> : <div className="mt-10 rounded-[26px] border border-[var(--line)] bg-white p-8"><p className="font-serif text-3xl font-bold text-[var(--navy)]">No journey has a first page yet.</p><p className="mt-2 text-sm text-[var(--ink-muted)]">Create one and it will appear here after it is saved to your journal.</p></div>}</section></AppShell>; }
+export default function DashboardPage() {
+  const { user, isAuthenticated } = useAuth();
+  const tripQuery = useQuery({
+    queryKey: ["trips"],
+    queryFn: tripApi.list,
+    enabled: isAuthenticated,
+  });
+  const current = tripQuery.data?.items[0];
+  return (
+    <AppShell>
+      <section className="mx-auto max-w-[1240px] px-5 py-12 lg:px-8">
+        <PageIntro
+          eyebrow="Your travel desk"
+          title={
+            <>
+              Good morning, {user?.firstName ?? "traveler"}
+              <span className="text-[var(--gold)]">.</span>
+            </>
+          }
+          description="A quiet place to keep your next places, dates, and useful little details together."
+          action={
+            <Link
+              href="/trips/new"
+              className="rounded-full bg-[var(--navy)] px-5 py-3 text-sm font-extrabold text-white"
+            >
+              Plan a journey
+            </Link>
+          }
+        />
+        {!isAuthenticated ? (
+          <div className="mt-10 rounded-[26px] bg-[var(--sand)] p-8 text-center">
+            <p className="font-serif text-3xl font-bold text-[var(--navy)]">
+              Your journal is waiting.
+            </p>
+            <Link
+              href="/login"
+              className="mt-5 inline-block rounded-full bg-[var(--navy)] px-5 py-3 text-sm font-extrabold text-white"
+            >
+              Sign in
+            </Link>
+          </div>
+        ) : tripQuery.isLoading ? (
+          <div className="mt-10 h-80 animate-pulse rounded-[26px] bg-[var(--sand)]" />
+        ) : current ? (
+          <div className="mt-10 grid gap-5 lg:grid-cols-[1.4fr_.6fr]">
+            <TripCard trip={tripCard(current)} />
+            <aside className="rounded-[26px] bg-[var(--sand)] p-6">
+              <p className="text-[10px] font-black uppercase tracking-[.18em] text-[var(--gold)]">
+                Trip pulse
+              </p>
+              <h2 className="mt-3 font-serif text-3xl font-bold text-[var(--navy)]">
+                {current.destinations[0]?.city ?? "A new place is calling."}
+              </h2>
+              <div className="mt-7 space-y-4 text-sm font-semibold text-[var(--ink-muted)]">
+                <p className="flex gap-3">
+                  <MapPin size={17} className="text-[var(--gold)]" />
+                  {current.destinations.length} destinations in view
+                </p>
+                <p className="flex gap-3">
+                  <Compass size={17} className="text-[var(--gold)]" />A real,
+                  saved route
+                </p>
+                <p className="flex gap-3">
+                  <WalletCards size={17} className="text-[var(--gold)]">
+                    {" "}
+                  </WalletCards>
+                  {current.currency} {current.budget} planned
+                </p>
+              </div>
+              <Link
+                href="/itinerary-builder"
+                className="mt-8 inline-flex items-center gap-2 text-sm font-extrabold text-[var(--navy)]"
+              >
+                Continue planning <ArrowRight size={15} />
+              </Link>
+            </aside>
+          </div>
+        ) : (
+          <div className="mt-10 rounded-[26px] border border-[var(--line)] bg-white p-8">
+            <p className="font-serif text-3xl font-bold text-[var(--navy)]">
+              No journey has a first page yet.
+            </p>
+            <p className="mt-2 text-sm text-[var(--ink-muted)]">
+              Create one and it will appear here after it is saved to your
+              journal.
+            </p>
+          </div>
+        )}
+      </section>
+    </AppShell>
+  );
+}

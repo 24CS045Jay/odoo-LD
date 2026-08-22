@@ -10,8 +10,8 @@ describe("World Trotter presentation data", () => {
   });
 
   it("provides an end-to-end planning route with trip, itinerary, and budget content", () => {
-    expect(trips[0]?.id).toBe("mediterranean");
-    expect(itineraryDays.map(day => day.city)).toContain("Lisbon");
+    expect(trips[0]?.id).toBe("rajasthan");
+    expect(itineraryDays.map(day => day.city)).toContain("Jaipur");
     expect(budgetData.reduce((sum, item) => sum + item.value, 0)).toBe(1595);
   });
 });

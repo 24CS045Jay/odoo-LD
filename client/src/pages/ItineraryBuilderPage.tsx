@@ -1,5 +1,6 @@
 import { ArrowRight, Plus, Route } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation } from "wouter";
 import { tripApi } from "@/api/client";
 import AppShell from "@/components/layout/AppShell";
@@ -7,10 +8,147 @@ import PageIntro from "@/components/shared/PageIntro";
 import ItineraryDayBlock from "@/components/itinerary/ItineraryDayBlock";
 
 export default function ItineraryBuilderPage() {
-  const [, navigate] = useLocation(); const queryClient = useQueryClient(); const tripId = localStorage.getItem("world-trotter-active-trip");
-  const tripQuery = useQuery({ queryKey: ["trip", tripId], queryFn: () => tripApi.get(tripId!), enabled: Boolean(tripId) });
-  const addDay = useMutation({ mutationFn: () => tripApi.createSection(tripId!, { city: "A new stop", title: "A day with room to wander", orderIndex: tripQuery.data?.sections.length ?? 0 }), onSuccess: () => queryClient.invalidateQueries({ queryKey: ["trip", tripId] }) });
-  if (!tripId) return <AppShell><section className="mx-auto max-w-[900px] px-5 py-16"><PageIntro eyebrow="Step 02 · shape the days" title={<>Choose a trip to begin<span className="text-[var(--gold)]">.</span></>} description="Create a trip first, then you can add days and real itinerary details here." action={<Link href="/trips/new" className="rounded-full bg-[var(--navy)] px-5 py-3 text-sm font-extrabold text-white">Create a trip</Link>}/></section></AppShell>;
-  const trip = tripQuery.data?.trip; const entries = tripQuery.data?.sections.map((section, index) => ({ day: `Day ${String(index + 1).padStart(2, "0")}`, date: section.startDate ? new Date(section.startDate).toLocaleDateString("en-GB", { day: "2-digit", month: "short" }) : "Date to choose", city: section.city, theme: section.title || "A day with room to wander", items: section.activities?.map(activity => activity.title) ?? ["No activities saved yet"], cost: new Intl.NumberFormat("en-IE", { style: "currency", currency: trip?.currency ?? "EUR", maximumFractionDigits: 0 }).format(section.budget ?? 0) })) ?? [];
-  return <AppShell><section className="mx-auto max-w-[1120px] px-5 py-12 lg:px-8"><PageIntro eyebrow="Step 02 · shape the days" title={<>Build a rhythm you want to remember<span className="text-[var(--gold)]">.</span></>} description="Your itinerary days are stored with this trip. Add, edit, and revisit them whenever the route changes." action={<button onClick={() => addDay.mutate()} disabled={addDay.isPending} className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-white px-5 py-3 text-sm font-extrabold text-[var(--navy)] disabled:opacity-60"><Plus size={16}/>{addDay.isPending ? "Saving day…" : "Add a day"}</button>}/><div className="mt-10 grid gap-7 lg:grid-cols-[1fr_300px]"><div className="space-y-4">{tripQuery.isLoading ? <div className="h-72 animate-pulse rounded-[26px] bg-[var(--sand)]"/> : entries.length ? entries.map((entry, index) => <ItineraryDayBlock key={entry.day} entry={entry} index={index}/>) : <div className="rounded-[26px] border border-[var(--line)] bg-white p-7"><p className="font-serif text-3xl font-bold text-[var(--navy)]">Give this route its first day.</p><p className="mt-2 text-sm text-[var(--ink-muted)]">Use “Add a day” to save an itinerary section to your trip.</p></div>}</div><aside className="self-start rounded-[26px] bg-[var(--navy)] p-6 text-white"><Route className="text-[var(--gold)]"/><p className="mt-5 text-[10px] font-black uppercase tracking-[.18em] text-white/60">Route at a glance</p><h2 className="mt-2 font-serif text-3xl font-bold">{trip?.title ?? "Your route"}</h2><p className="mt-3 text-sm leading-6 text-white/70">{trip?.destinations.map(destination => destination.city).join(" · ") || "Choose your next stop"} · {entries.length} saved days.</p><button onClick={() => navigate("/itinerary-view")} className="mt-7 inline-flex items-center gap-2 rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-extrabold text-[var(--navy)]">Review the itinerary <ArrowRight size={16}/></button></aside></div></section></AppShell>;
+  const [, navigate] = useLocation();
+  const queryClient = useQueryClient();
+  const tripId = localStorage.getItem("world-trotter-active-trip");
+  const tripQuery = useQuery({
+    queryKey: ["trip", tripId],
+    queryFn: () => tripApi.get(tripId!),
+    enabled: Boolean(tripId),
+  });
+  const addDay = useMutation({
+    mutationFn: () =>
+      tripApi.createSection(tripId!, {
+        city: "A new stop",
+        title: "A day with room to wander",
+        orderIndex: tripQuery.data?.sections.length ?? 0,
+      }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ["trip", tripId] }),
+  });
+  if (!tripId)
+    return (
+      <AppShell>
+        <section className="mx-auto max-w-[900px] px-5 py-16">
+          <PageIntro
+            eyebrow="Step 02 · shape the days"
+            title={
+              <>
+                Choose a trip to begin
+                <span className="text-[var(--gold)]">.</span>
+              </>
+            }
+            description="Create a trip first, then you can add days and real itinerary details here."
+            action={
+              <Link
+                href="/trips/new"
+                className="rounded-full bg-[var(--navy)] px-5 py-3 text-sm font-extrabold text-white"
+              >
+                Create a trip
+              </Link>
+            }
+          />
+        </section>
+      </AppShell>
+    );
+  const trip = tripQuery.data?.trip;
+  const entries =
+    tripQuery.data?.sections.map((section, index) => ({
+      day: `Day ${String(index + 1).padStart(2, "0")}`,
+      date: section.startDate
+        ? new Date(section.startDate).toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+          })
+        : "Date to choose",
+      city: section.city,
+      theme: section.title || "A day with room to wander",
+      items: section.activities?.map(activity => activity.title) ?? [
+        "No activities saved yet",
+      ],
+      cost: new Intl.NumberFormat("en-IE", {
+        style: "currency",
+        currency: trip?.currency ?? "EUR",
+        maximumFractionDigits: 0,
+      }).format(section.budget ?? 0),
+    })) ?? [];
+  return (
+    <AppShell>
+      <section className="mx-auto max-w-[1120px] px-5 py-12 lg:px-8">
+        <PageIntro
+          eyebrow="Step 02 · shape the days"
+          title={
+            <>
+              Build a rhythm you want to remember
+              <span className="text-[var(--gold)]">.</span>
+            </>
+          }
+          description="Your itinerary days are stored with this trip. Add, edit, and revisit them whenever the route changes."
+          action={
+            <button
+              onClick={() => addDay.mutate()}
+              disabled={addDay.isPending}
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-white px-5 py-3 text-sm font-extrabold text-[var(--navy)] disabled:opacity-60"
+            >
+              <Plus size={16} />
+              {addDay.isPending ? "Saving day…" : "Add a day"}
+            </button>
+          }
+        />
+        <div className="mt-10 grid gap-7 lg:grid-cols-[1fr_300px]">
+          <div className="space-y-4">
+            {tripQuery.isLoading ? (
+              <div className="h-72 animate-pulse rounded-[26px] bg-[var(--sand)]" />
+            ) : entries.length ? (
+              <AnimatePresence initial={false}>
+                {entries.map((entry, index) => (
+                  <motion.div
+                    layout
+                    key={entry.day}
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <ItineraryDayBlock entry={entry} index={index} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            ) : (
+              <div className="rounded-[26px] border border-[var(--line)] bg-white p-7">
+                <p className="font-serif text-3xl font-bold text-[var(--navy)]">
+                  Give this route its first day.
+                </p>
+                <p className="mt-2 text-sm text-[var(--ink-muted)]">
+                  Use “Add a day” to save an itinerary section to your trip.
+                </p>
+              </div>
+            )}
+          </div>
+          <aside className="self-start rounded-[26px] bg-[var(--navy)] p-6 text-white">
+            <Route className="text-[var(--gold)]" />
+            <p className="mt-5 text-[10px] font-black uppercase tracking-[.18em] text-white/60">
+              Route at a glance
+            </p>
+            <h2 className="mt-2 font-serif text-3xl font-bold">
+              {trip?.title ?? "Your route"}
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-white/70">
+              {trip?.destinations
+                .map(destination => destination.city)
+                .join(" · ") || "Choose your next stop"}{" "}
+              · {entries.length} saved days.
+            </p>
+            <button
+              onClick={() => navigate("/itinerary-view")}
+              className="mt-7 inline-flex items-center gap-2 rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-extrabold text-[var(--navy)]"
+            >
+              Review the itinerary <ArrowRight size={16} />
+            </button>
+          </aside>
+        </div>
+      </section>
+    </AppShell>
+  );
 }

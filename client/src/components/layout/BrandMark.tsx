@@ -1,10 +1,6 @@
-// World Trotter visual style: navy-and-gold compass globe with a dependable vector fallback.
-import { Compass, Globe2 } from "lucide-react";
-import { logoUrl } from "@/lib/presentationData";
+import { emblemUrl } from "@/lib/presentationData";
+import AppImage from "@/components/shared/AppImage";
 
 export default function BrandMark({ size = 40 }: { size?: number }) {
-  return <span className="relative inline-flex shrink-0 items-center justify-center rounded-full bg-[var(--sand)] text-[var(--navy)] gold-ring" style={{ width: size, height: size }}>
-    <Globe2 size={Math.round(size * 0.58)} strokeWidth={1.65}/><Compass className="absolute text-[var(--gold)]" size={Math.round(size * 0.36)} strokeWidth={2}/>
-    <img src={logoUrl} alt="" aria-hidden="true" onError={event => { event.currentTarget.style.display = "none"; }} className="absolute inset-0 h-full w-full rounded-full object-contain"/>
-  </span>;
+  return <span className="inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#FAF7F2] p-0.5 shadow-[0_8px_18px_rgba(23,49,74,0.13)] ring-1 ring-[rgba(183,149,74,0.32)] transition-transform duration-200 group-hover:scale-105" style={{ width: size, height: size }}><AppImage src={emblemUrl} alt="World Trotter compass globe" className="h-full w-full rounded-full object-cover" containerClassName="h-full w-full rounded-full"/></span>;
 }
