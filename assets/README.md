@@ -1,6 +1,5 @@
 # World Trotter Image Assets
 
-The full local source image folder is located at `/home/ubuntu/webdev-static-assets/world-trotter/`. Its asset manifest records every filename and the persistent `/manus-storage/` path used in this application.
+The complete local image package is committed in [`client/public/assets/images/`](../client/public/assets/images/). The client reads all image paths through `client/src/lib/imageRegistry.ts`, so local runs do not depend on hosted image URLs.
 
-Binary images remain outside the project source tree to keep deployments reliable. The application references the persistent storage URLs in `client/src/lib/presentationData.ts`.
-
+Use the local image folder’s README for naming, placement, and registration instructions.

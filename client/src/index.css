@@ -17,5 +17,11 @@ button:active, [role="button"]:active { transform: scale(.97); }
 .route-line { display: inline-block; width: 58px; border-top: 1px dashed var(--gold); opacity: .65; }
 .map-grid { background-image: linear-gradient(rgba(183,149,74,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(183,149,74,.12) 1px, transparent 1px); background-size: 28px 28px; }
 .gold-ring { box-shadow: inset 0 0 0 1px rgba(183,149,74,.25); }
+.desktop-section { padding-top: clamp(2.5rem, 4vw, 5rem); padding-bottom: clamp(2.5rem, 4vw, 5rem); }
+@media (min-width: 1280px) { .desktop-card-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 1536px) { .desktop-card-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { main > section.mx-auto { width: 100%; max-width: 1440px; padding-left: 2.5rem; padding-right: 2.5rem; } }
+@media (min-width: 1536px) { main > section.mx-auto { max-width: 1600px; padding-left: 3rem; padding-right: 3rem; } }
+@media (min-width: 1536px) { html { font-size: 17px; } }
 ::selection { background: var(--gold); color: #fffdf9; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }

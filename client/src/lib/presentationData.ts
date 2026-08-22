@@ -1,17 +1,17 @@
-// World Trotter visual asset registry. The supplied official logo is never regenerated or restyled.
-// All images live in client/public/assets/world-trotter so they load when the repository runs locally.
-const localAsset = (filename: string) => `/assets/world-trotter/${filename}`;
+import { IMAGES } from "./imageRegistry";
 
-export const emblemUrl = localAsset("world-trotter-emblem.png");
-export const fullLogoUrl = localAsset("world-trotter-full-lockup.webp");
-export const faviconUrl = localAsset("world-trotter-favicon.png");
+// World Trotter visual asset registry. The supplied official logo is never regenerated or restyled.
+// Every image resolves from client/public/assets/images when the repository runs locally.
+export const emblemUrl = IMAGES.logo.mark;
+export const fullLogoUrl = IMAGES.logo.full;
+export const faviconUrl = IMAGES.logo.favicon;
 export const logoUrl = emblemUrl;
-export const heroUrl = localAsset("world-trotter-rajasthan-fort.jpeg");
-export const europeUrl = localAsset("world-trotter-ladakh-himalaya.jpg");
-export const asiaUrl = localAsset("world-trotter-kerala-backwaters.jpg");
-export const tajUrl = localAsset("world-trotter-taj-mahal.jpeg");
-export const hampiUrl = localAsset("world-trotter-hampi-temple.jpg");
-export const templeUrl = localAsset("world-trotter-golden-temple.jpg");
+export const heroUrl = IMAGES.hero.home;
+export const europeUrl = IMAGES.regions.himalayas;
+export const asiaUrl = IMAGES.regions.keralaBackwaters;
+export const tajUrl = IMAGES.destinations.tajMahal;
+export const hampiUrl = IMAGES.destinations.hampi;
+export const templeUrl = IMAGES.destinations.goldenTemple;
 export const regions = [
   { name: "Rajasthan", places: "Jaipur · Udaipur · Jodhpur", cost: "From ₹18,400", image: heroUrl, mood: "sandstone stories", routes: 12 },
   { name: "Himalayas & Hill Stations", places: "Leh · Spiti · Manali", cost: "From ₹22,600", image: europeUrl, mood: "high quiet", routes: 18 },
