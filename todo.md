@@ -20,3 +20,8 @@
 - [x] Commit and push the backend integration changes to the selected GitHub repository.
 - [x] Verify the remote backend integration commit and clean repository state.
 - [x] Synchronize the final World Trotter release checklist state to the selected GitHub repository.
+- [x] Crop and upload the supplied official logo into full-lockup and emblem assets without regenerating it.
+- [x] Replace generic destination visuals with Indian heritage and landscape photography across the specified brand moments.
+- [x] Rebuild the LandingIntro component to the exact five-stage, 3200 ms Framer Motion sequence.
+- [x] Apply and verify the required card, calendar, itinerary, dropdown, chart, and route-transition animations.
+- [ ] Test the refinement in-browser, checkpoint the project, and push the completed update to GitHub.

@@ -17,7 +17,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[color:var(--canvas)]/95 backdrop-blur-xl">
       <div className="mx-auto flex h-[74px] max-w-[1240px] items-center justify-between px-5 lg:px-8">
         <Link href="/" className="flex items-center gap-3" aria-label="World Trotter home">
-          <BrandMark size={40} />
+          <span data-world-trotter-header-logo><BrandMark size={40} /></span>
           <span className="font-serif text-[23px] font-bold tracking-[-0.05em] text-[var(--navy)]">World <span className="text-[var(--gold)]">Trotter</span></span>
         </Link>
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
