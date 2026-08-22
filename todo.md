@@ -24,4 +24,4 @@
 - [x] Replace generic destination visuals with Indian heritage and landscape photography across the specified brand moments.
 - [x] Rebuild the LandingIntro component to the exact five-stage, 3200 ms Framer Motion sequence.
 - [x] Apply and verify the required card, calendar, itinerary, dropdown, chart, and route-transition animations.
-- [ ] Test the refinement in-browser, checkpoint the project, and push the completed update to GitHub.
+- [x] Test the refinement in-browser, checkpoint the project, and push the completed update to GitHub.
