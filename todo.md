@@ -28,5 +28,5 @@
 - [x] Organize all World Trotter logo and destination source images in a local asset folder with a deployment-safe mapping manifest.
 - [x] Verify the published project still resolves every image from its persistent storage URL and synchronize the manifest to GitHub.
 - [x] Commit and push the new local asset manifest documentation and final checklist state to the selected GitHub repository.
-- [ ] Version the full World Trotter asset mapping manifest in the selected GitHub repository.
-- [ ] Synchronize the final completed local-asset checklist state to GitHub and verify the remote commit.
+- [x] Version the full World Trotter asset mapping manifest in the selected GitHub repository.
+- [x] Synchronize the final completed local-asset checklist state to GitHub and verify the remote commit.
